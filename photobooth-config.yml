@@ -1,0 +1,7 @@
+---
+- name: Configure photomaton
+  hosts: all
+  tasks:
+    - name: Import os_config tasks
+      ansible.builtin.import_tasks: tasks/os_config.yml
+      tags: os_config

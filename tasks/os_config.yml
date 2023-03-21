@@ -1,0 +1,95 @@
+---
+- name: Setup yarn repo
+  become: true
+  block:
+    - name: get apt key
+      ansible.builtin.apt_key:
+        url: https://dl.yarnpkg.com/debian/pubkey.gpg
+        state: present
+    - name: setup repo
+      ansible.builtin.apt_repository:
+        repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+        filename: yarn
+        state: present
+
+- name: Install required package
+  become: true
+  ansible.builtin.package:
+    name:
+      - libapache2-mod-php
+      - git
+      - php-gd
+      - php-zip
+      - gphoto2
+      - libimage-exiftool-perl
+      - nodejs
+      - rsync
+      - udisks2
+      - yarn
+      - make
+      - g++
+      - build-essential
+    state: present
+
+- name: Check if photobooth source is already installed (under /var/www/html)
+  ansible.builtin.stat:
+    path: /var/www/html/.git
+  register: source_installed
+
+- name: Remove /var/www/html if required
+  become: true
+  ansible.builtin.file:
+    path: /var/www/html
+    state: absent
+  when: source_installed.stat.exists is false
+
+- name: Get photobooth source
+  become: true
+  become_user: www-data
+  ansible.builtin.git:
+    repo: https://github.com/lix0st/photobooth.git
+    dest: /var/www/html
+    recursive: true
+    single_branch: true
+    version: dev
+
+- name: Update all packages in package.json to their latest version
+  become: true
+  become_user: www-data
+  community.general.yarn:
+    path: /var/www/html
+    state: latest
+
+- name: Execute yarn build
+  become: true
+  become_user: www-data
+  ansible.builtin.command:
+    cmd: "yarn build"
+    chdir: /var/www/html/
+  register: yarn_build_output
+  changed_when: yarn_build_output.rc != 0
+
+- name: Ensure /var/www has correct permission
+  become: true
+  ansible.builtin.file:
+    path: /var/www
+    state: directory
+    recurse: true
+    owner: www-data
+    group: www-data
+
+- name: Add www-data to plugdev group
+  become: true
+  ansible.builtin.user:
+    name: www-data
+    groups: plugdev
+    append: true
+
+- name: Ensure custom photobooth configuration is installed
+  become: true
+  ansible.builtin.copy:
+    dest: /var/www/html/config/my.config.inc.php
+    src: my.config.inc.php
+    owner: www-data
+    group: www-data
+    mode: 0660
