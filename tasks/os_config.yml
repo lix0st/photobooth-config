@@ -29,6 +29,7 @@
       - make
       - g++
       - build-essential
+      - chromium-browser
     state: present
 
 - name: Check if photobooth source is already installed (under /var/www/html)
@@ -90,6 +91,15 @@
   ansible.builtin.copy:
     dest: /var/www/html/config/my.config.inc.php
     src: my.config.inc.php
+    owner: www-data
+    group: www-data
+    mode: 0660
+
+- name: Install custom logo
+  become: true
+  ansible.builtin.copy:
+    dest: /var/www/html/private/logo.png
+    src: logo.png
     owner: www-data
     group: www-data
     mode: 0660

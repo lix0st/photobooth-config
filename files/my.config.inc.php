@@ -30,7 +30,7 @@ $config = array (
   'logo' => 
   array (
     'enabled' => true,
-    'path' => 'private/logo_small.png',
+    'path' => 'private/logo.png',
   ),
   'event' => 
   array (
