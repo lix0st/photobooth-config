@@ -3,7 +3,7 @@ $config = array (
   'ui' => 
   array (
     'language' => 'fr',
-    'folders_lang' => '/photobooth_v4/resources/lang',
+    'folders_lang' => '/resources/lang',
     'show_fork' => false,
     'shutter_cheese_img' => '',
     'font_size' => '20px',
@@ -17,7 +17,7 @@ $config = array (
     'cntdwn_offset' => '1',
     'no_cheese' => true,
     'cheese_time' => '2000',
-    'frame' => '/var/www/html/photobooth_v4/resources/img/frames/frame.png',
+    'frame' => '/var/www/html/resources/img/frames/frame.png',
   ),
   'webserver' => 
   array (
@@ -32,6 +32,10 @@ $config = array (
     'enabled' => true,
     'path' => 'private/logo.png',
   ),
+  'start_screen' =>
+  array (
+    'title' => 'Photomaton',
+  ),
   'event' => 
   array (
     'textLeft' => 'Alexandra',
@@ -39,29 +43,29 @@ $config = array (
   ),
   'textonpicture' => 
   array (
-    'font' => '/var/www/html/photobooth_v4/resources/fonts/GreatVibes-Regular.ttf',
+    'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
   ),
   'collage' => 
   array (
-    'frame' => '/var/www/html/photobooth_v4/resources/img/frames/frame.png',
-    'placeholderpath' => '/var/www/html/photobooth_v4/resources/img/background/01.jpg',
+    'frame' => '/var/www/html/resources/img/frames/frame.png',
+    'placeholderpath' => '/var/www/html/resources/img/background/01.jpg',
     'limit' => 4,
   ),
   'textoncollage' => 
   array (
-    'font' => '/var/www/html/photobooth_v4/resources/fonts/GreatVibes-Regular.ttf',
+    'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
   ),
   'print' => 
   array (
-    'frame' => '/var/www/html/photobooth_v4/resources/img/frames/frame.png',
+    'frame' => '/var/www/html/resources/img/frames/frame.png',
   ),
   'textonprint' => 
   array (
-    'font' => '/var/www/html/photobooth_v4/resources/fonts/GreatVibes-Regular.ttf',
+    'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
   ),
   'qr' => 
   array (
-    'url' => 'http://192.168.10.71/photobooth_v4/api/download.php?image=',
+    'url' => 'http://192.168.10.71/api/download.php?image=',
   ),
   'mail' => 
   array (
@@ -75,8 +79,8 @@ $config = array (
   ),
   'background' => 
   array (
-    'defaults' => 'url(/photobooth_v4/private/bg_aim.jpg)',
-    'admin' => 'url(/photobooth_v4/private/bg_aim.jpg)',
-    'chroma' => 'url(/photobooth_v4/private/bg_aim.jpg)',
+    'defaults' => 'url("/private/background.png")',
+    'admin' => 'url(/private/background.png)',
+    'chroma' => 'url(/private/background.png)',
   ),
 );

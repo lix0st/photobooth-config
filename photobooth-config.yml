@@ -1,6 +1,8 @@
 ---
 - name: Configure photomaton
   hosts: all
+  vars:
+    photobooth_version: 4.3.1
   tasks:
     - name: Import os_config tasks
       ansible.builtin.import_tasks: tasks/os_config.yml

@@ -34,41 +34,63 @@
 
 - name: Check if photobooth source is already installed (under /var/www/html)
   ansible.builtin.stat:
-    path: /var/www/html/.git
+    path: /var/www/html/package.json
   register: source_installed
+
+- name: Read photobooth version file
+  ansible.builtin.slurp:
+    path: /var/www/html/package.json
+  register: package_json
+  when: source_installed.stat.exists
+
+- name: Parse photobooth version file
+  ansible.builtin.set_fact:
+    installed_version: "{{ (package_json.content|b64decode|from_json).version }}"
+  when: source_installed.stat.exists
 
 - name: Remove /var/www/html if required
   become: true
   ansible.builtin.file:
     path: /var/www/html
     state: absent
-  when: source_installed.stat.exists is false
+  when: source_installed.stat.exists is false or installed_version != photobooth_version
+
+- name: Recreate /var/www/html if required
+  become: true
+  become_user: www-data
+  ansible.builtin.file:
+    path: /var/www/html
+    state: directory
+  when: source_installed.stat.exists is false or installed_version != photobooth_version
+
 
 - name: Get photobooth source
   become: true
   become_user: www-data
-  ansible.builtin.git:
-    repo: https://github.com/lix0st/photobooth.git
+  ansible.builtin.unarchive:
+    src: "https://github.com/PhotoboothProject/photobooth/releases/download/v{{ photobooth_version }}/photobooth-{{ photobooth_version}}.tar.gz"
     dest: /var/www/html
-    recursive: true
-    single_branch: true
-    version: dev
+    remote_src: yes
+  register: get_source
+  when: source_installed.stat.exists is false or installed_version != photobooth_version
 
-- name: Update all packages in package.json to their latest version
-  become: true
-  become_user: www-data
-  community.general.yarn:
-    path: /var/www/html
-    state: latest
+# - name: Execute yarn install
+#   become: true
+#   become_user: www-data
+#   ansible.builtin.command
+#     cmd: "yarn install"
+#     chdir: /var/www/html
+#   when: get_source is changed
 
-- name: Execute yarn build
-  become: true
-  become_user: www-data
-  ansible.builtin.command:
-    cmd: "yarn build"
-    chdir: /var/www/html/
-  register: yarn_build_output
-  changed_when: yarn_build_output.rc != 0
+# - name: Execute yarn build
+#   become: true
+#   become_user: www-data
+#   ansible.builtin.command:
+#     cmd: "yarn build"
+#     chdir: /var/www/html/
+#   register: yarn_build_output
+#   changed_when: yarn_build_output.rc != 0
+#   when: get_source is changed
 
 - name: Ensure /var/www has correct permission
   become: true
@@ -94,12 +116,17 @@
     owner: www-data
     group: www-data
     mode: 0660
+  tags: config
 
-- name: Install custom logo
+- name: Install custom images
   become: true
   ansible.builtin.copy:
-    dest: /var/www/html/private/logo.png
-    src: logo.png
+    dest: "/var/www/html/private/{{ item }}"
+    src: "{{ item }}"
     owner: www-data
     group: www-data
     mode: 0660
+  with_items:
+    - logo.png
+    - background.png
+  tags: config
