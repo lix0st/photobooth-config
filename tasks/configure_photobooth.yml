@@ -1,0 +1,23 @@
+---
+- name: Ensure custom photobooth configuration is installed
+  become: true
+  ansible.builtin.copy:
+    dest: /var/www/html/config/my.config.inc.php
+    src: my.config.inc.php
+    owner: www-data
+    group: www-data
+    mode: 0660
+  tags: config
+
+- name: Install custom images
+  become: true
+  ansible.builtin.copy:
+    dest: "/var/www/html/private/{{ item }}"
+    src: "{{ item }}"
+    owner: www-data
+    group: www-data
+    mode: 0660
+  with_items:
+    - logo.png
+    - background.png
+  tags: config
