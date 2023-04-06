@@ -1,6 +1,6 @@
 <?php
 $config = array (
-  'ui' => 
+  'ui' =>
   array (
     'language' => 'fr',
     'folders_lang' => '/resources/lang',
@@ -8,79 +8,79 @@ $config = array (
     'shutter_cheese_img' => '',
     'font_size' => '20px',
   ),
-  'adminpanel' => 
+  'adminpanel' =>
   array (
     'view' => 'expert',
   ),
-  'picture' => 
+  'start_screen' =>
+  array (
+    'title' => 'Photomaton',
+  ),
+  'picture' =>
   array (
     'cntdwn_offset' => '1',
     'no_cheese' => true,
     'cheese_time' => '2000',
     'frame' => '/var/www/html/resources/img/frames/frame.png',
   ),
-  'webserver' => 
+  'webserver' =>
   array (
     'ip' => '192.168.10.71',
   ),
-  'delete' => 
+  'delete' =>
   array (
     'no_request' => true,
   ),
-  'logo' => 
-  array (
-    'enabled' => true,
-    'path' => 'private/logo.png',
-  ),
-  'start_screen' =>
-  array (
-    'title' => 'Photomaton',
-  ),
-  'event' => 
+  'event' =>
   array (
     'textLeft' => 'Alexandra',
     'textRight' => 'Olivier',
   ),
-  'textonpicture' => 
+  'textonpicture' =>
   array (
     'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
   ),
-  'collage' => 
+  'collage' =>
   array (
     'frame' => '/var/www/html/resources/img/frames/frame.png',
     'placeholderpath' => '/var/www/html/resources/img/background/01.jpg',
     'limit' => 4,
   ),
-  'textoncollage' => 
+  'textoncollage' =>
   array (
     'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
   ),
-  'print' => 
+  'print' =>
   array (
     'frame' => '/var/www/html/resources/img/frames/frame.png',
   ),
-  'textonprint' => 
+  'textonprint' =>
   array (
     'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
   ),
-  'qr' => 
+  'qr' =>
   array (
-    'url' => 'http://192.168.10.71/api/download.php?image=',
+    'url' => 'https://drive.google.com/drive/folders/1sjGJATLed6rUPslmTLkTYbc-U5GjV3qm?usp=sharing',
+    'append_filename' => false,
   ),
-  'mail' => 
+  'mail' =>
   array (
     'subject' => 'Here is your picture',
     'text' => 'Hey, your picture is attached.',
   ),
-  'colors' => 
+  'colors' =>
   array (
     'highlight' => '#c0c0c0',
     'start_font' => '#3d3846',
   ),
-  'background' => 
+  'background' =>
   array (
     'defaults' => 'url("/private/background.png")',
     'admin' => 'url(/private/background.png)',
     'chroma' => 'url(/private/background.png)',
+  ),
+  'post_photo' =>
+  array (
+    'cmd' => '/usr/bin/gupload /var/www/html/data/images/%s -c photobooth/ -d',
   ),
 );
