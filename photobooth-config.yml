@@ -1,18 +1,11 @@
 ---
 - name: Configure photomaton
   hosts: all
-  vars:
-    photobooth_version: 4.3.1
+  become: true
   tasks:
-    - name: Import os_config tasks
-      ansible.builtin.import_tasks: tasks/os_config.yml
-      tags: os_config
     - name: Import install_photobooth tasks
       ansible.builtin.import_tasks: tasks/install_photobooth.yml
       tags: install
     - name: Import configure_photobooth tasks
       ansible.builtin.import_tasks: tasks/configure_photobooth.yml
       tags: config
-    - name: Import google_drive tasks
-      ansible.builtin.import_tasks: tasks/google_drive.yml
-      tags: google_drive

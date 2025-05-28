@@ -1,23 +1,44 @@
 ---
 - name: Ensure custom photobooth configuration is installed
-  become: true
   ansible.builtin.copy:
     dest: /var/www/html/config/my.config.inc.php
     src: my.config.inc.php
     owner: www-data
     group: www-data
-    mode: 0660
+    mode: "0660"
   tags: config
 
-- name: Install custom images
-  become: true
-  ansible.builtin.copy:
-    dest: "/var/www/html/private/{{ item }}"
-    src: "{{ item }}"
+- name: Create sub-directory in private directory
+  ansible.builtin.file:
+    path: "/var/www/html/private/{{ item }}"
+    state: directory
     owner: www-data
     group: www-data
-    mode: 0660
+    mode: "0770"
   with_items:
-    - logo.png
-    - background.png
+    - images
+    - images/logo
+    - images/background
+    - scripts
+
+- name: Install custom images
+  ansible.builtin.copy:
+    dest: "/var/www/html/private/{{ item.dest }}"
+    src: "{{ item.file }}"
+    owner: www-data
+    group: www-data
+    mode: "{{ item.mode }}"
+  with_items:
+    - file: logo_aim.png
+      dest: images/logo/logo_aim.png
+      mode: "0660"
+    - file: bg_aim.jpg
+      dest: images/background/bg_aim.jpg
+      mode: "0660"
+    - file: upload_picture.sh
+      dest: scripts/upload_picture.sh
+      mode: "0770"
+    - file: collage.json
+      dest: collage.json
+      mode: "0660"
   tags: config

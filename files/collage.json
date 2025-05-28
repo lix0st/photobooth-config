@@ -1,0 +1,18 @@
+{
+    "width": "1800",
+    "height": "1800",
+    "apply_frame": "false",
+    "frame": "/resources/img/frames/frame_stone.png",
+    "background": "",
+    "background_color": "#FFFFFF",
+    "placeholder": false,
+    "placeholderpath": "/resources/img/background/01.jpg",
+    "placeholderposition": "1",
+    "column_count": "2",
+    "column_offset": "25",
+    "layout":[
+             [ "50",   "50",    "825", "533",   "0",         false       ],
+             [ "50",   "630",  "825", "533",   "0",          false      ],
+             [ "50",   "1216", "825", "533",   "0",          false       ]
+             ]
+}

@@ -1,69 +1,15 @@
 ---
-- name: Check if photobooth source is already installed (under /var/www/html)
-  ansible.builtin.stat:
-    path: /var/www/html/package.json
-  register: source_installed
+- name: Get latest installation script version
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/PhotoboothProject/photobooth/dev/install-photobooth.sh"
+    dest: /tmp/install-photobooth.sh
+    mode: "0777"
 
-- name: Read photobooth version file
-  ansible.builtin.slurp:
-    path: /var/www/html/package.json
-  register: package_json
-  when: source_installed.stat.exists
-
-- name: Parse photobooth version file
-  ansible.builtin.set_fact:
-    installed_version: "{{ (package_json.content|b64decode|from_json).version }}"
-  when: source_installed.stat.exists
-
-- name: Remove /var/www/html if required
-  become: true
-  ansible.builtin.file:
-    path: /var/www/html
-    state: absent
-  when: source_installed.stat.exists is false or installed_version != photobooth_version
-
-- name: Recreate /var/www/html if required
-  become: true
-  become_user: www-data
-  ansible.builtin.file:
-    path: /var/www/html
-    state: directory
-  when: source_installed.stat.exists is false or installed_version != photobooth_version
-
-
-- name: Get photobooth source
-  become: true
-  become_user: www-data
-  ansible.builtin.unarchive:
-    src: "https://github.com/PhotoboothProject/photobooth/releases/download/v{{ photobooth_version }}/photobooth-{{ photobooth_version}}.tar.gz"
-    dest: /var/www/html
-    remote_src: yes
-  register: get_source
-  when: source_installed.stat.exists is false or installed_version != photobooth_version
-
-- name: Execute yarn install
-  become: true
-  become_user: www-data
+- name: Execute installation script
+  changed_when: true
   ansible.builtin.command:
-    cmd: "yarn install"
-    chdir: /var/www/html
-  when: get_source is changed
-
-- name: Execute yarn build
-  become: true
-  become_user: www-data
-  ansible.builtin.command:
-    cmd: "yarn build"
-    chdir: /var/www/html/
-  register: yarn_build_output
-  changed_when: yarn_build_output.rc != 0
-  when: get_source is changed
-
-- name: Ensure /var/www has correct permission
-  become: true
-  ansible.builtin.file:
-    path: /var/www
-    state: directory
-    recurse: true
-    owner: www-data
-    group: www-data
+    argv:
+      - bash
+      - /tmp/install-photobooth.sh
+      - -username=photobooth
+      - -s
