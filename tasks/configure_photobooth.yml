@@ -1,8 +1,8 @@
 ---
 - name: Ensure custom photobooth configuration is installed
-  ansible.builtin.copy:
+  ansible.builtin.template:
     dest: /var/www/html/config/my.config.inc.php
-    src: my.config.inc.php
+    src: my.config.inc.php.j2
     owner: www-data
     group: www-data
     mode: "0660"

@@ -9,16 +9,18 @@ return [
     'adminpanel' => [
         'view' => 'expert',
     ],
+    'dev' => [
+        'demo_images' => true,
+    ],
     'start_screen' => [
         'title' => 'Photomaton',
     ],
     'logo' => [
-        'enabled' => true,
+        'enabled' => false,
         'path' => 'private/images/logo/logo_aim.png',
-        'position' => 'top_right',
+        'position' => 'bottom_right',
     ],
     'picture' => [
-        'enabled' => false,
         'cntdwn_time' => 3,
         'cheese_time' => 2000,
         'take_frame' => false,
@@ -39,6 +41,7 @@ return [
         'enabled' => false,
     ],
     'collage' => [
+        'enabled' => false,
         'layout' => 'collage.json',
         'frame' => '/var/www/html/resources/img/frames/frame.png',
         'placeholderpath' => '/resources/img/background/01.jpg',
@@ -53,6 +56,18 @@ return [
         'password' => '$2y$10$Shgon8uhAHa1FCV9Vv6t8.8uKcICveSwZ8Mxz3PplXjyHRk8ffaje',
         'keypad' => true,
         'pin' => '7721',
+    ],
+    'ftp' => [
+        'enabled' => true,
+        'baseURL' => 'ie6qj.ftp.infomaniak.com',
+        'username' => 'ie6qj_photobooth',
+        'password' => '{{ ftp_password }}',
+        'folder' => 'aim-photobooth',
+        'title' => 'alex-oli',
+        'useForQr' => true,
+        'website' => 'https://photobooth.aim-photography.ch/',
+        'urlTemplate' => '%website%/%folder%/%title%/',
+        'create_webpage' => true,
     ],
     'colors' => [
         'countdown' => '#33d17a',
@@ -79,6 +94,7 @@ return [
         'append_filename' => false,
     ],
     'print' => [
+        'from_result' => true,
         'frame' => '/var/www/html/resources/img/frames/frame.png',
     ],
     'commands' => [
@@ -87,5 +103,10 @@ return [
     'mail' => [
         'subject' => 'Here is your picture',
         'text' => 'Hey, your picture is attached.',
+    ],
+    'sound' => [
+        'countdown_enabled' => false,
+        'cheese_enabled' => false,
+        'fallback_enabled' => false,
     ],
 ];

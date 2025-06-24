@@ -1,0 +1,2 @@
+---
+ftp_password: "{{ vault_ftp_password }}"
