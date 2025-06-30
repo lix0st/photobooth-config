@@ -4,30 +4,31 @@ return [
     'ui' => [
         'language' => 'fr',
         'show_fork' => false,
+        'scale' => 200,
         'shutter_animation' => false,
     ],
     'adminpanel' => [
         'view' => 'expert',
-    ],
-    'dev' => [
-        'demo_images' => false,
     ],
     'start_screen' => [
         'title' => 'Photomaton',
     ],
     'logo' => [
         'enabled' => true,
-        'path' => 'private/images/logo/logo_aim.png',
+        'path' => '/private/images/logo/logo_aim.png',
         'position' => 'bottom_right',
+    ],
+    'download' => [
+        'enabled' => false,
     ],
     'picture' => [
         'cntdwn_time' => 3,
         'cheese_time' => 2000,
         'take_frame' => false,
-        'frame' => '/var/www/html/resources/img/frames/frame.png',
+        'frame' => '/resources/img/frames/frame.png',
     ],
     'textonpicture' => [
-        'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
+        'font' => '/resources/fonts/GreatVibes-Regular.ttf',
     ],
     'delete' => [
         'no_request' => true,
@@ -43,12 +44,12 @@ return [
     'collage' => [
         'enabled' => false,
         'layout' => 'collage.json',
-        'frame' => '/var/www/html/resources/img/frames/frame.png',
+        'frame' => '/resources/img/frames/frame.png',
         'placeholderpath' => '/resources/img/background/01.jpg',
         'limit' => 3,
     ],
     'textoncollage' => [
-        'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
+        'font' => '/resources/fonts/GreatVibes-Regular.ttf',
     ],
     'login' => [
         'enabled' => true,
@@ -68,6 +69,11 @@ return [
         'website' => 'https://photobooth.aim-photography.ch/',
         'urlTemplate' => '%website%/%folder%/%title%/',
         'create_webpage' => true,
+        'delete' => true,
+    ],
+    'protect' => [
+        'manual' => true,
+        'localhost_manual' => true,
     ],
     'colors' => [
         'countdown' => '#33d17a',
@@ -80,25 +86,27 @@ return [
         'box' => '#dbffda',
     ],
     'background' => [
-        'defaults' => 'url("/private/images/background/bg_aim.jpg")',
-        'chroma' => 'url("/private/images/background/bg_aim.jpg")',
+        'defaults' => 'url(/private/images/background/bg_aim.jpg)',
+        'chroma' => 'url(/private/images/background/bg_aim.jpg)',
     ],
     'remotebuzzer' => [
         'serverip' => '192.168.110.50',
     ],
     'textonprint' => [
-        'font' => '/var/www/html/resources/fonts/GreatVibes-Regular.ttf',
+        'font' => '/resources/fonts/GreatVibes-Regular.ttf',
     ],
     'qr' => [
-        'url' => 'https://lix0st.ch/piwigo-test/identification.php',
+        'enabled' => true,
+        'url' => 'https://photobooth.aim-photography.ch/',
         'append_filename' => false,
+        'custom_text' => true,
+        'text' => 'Scanner le QR code pour télécharger les photos',
     ],
     'print' => [
         'from_result' => true,
-        'frame' => '/var/www/html/resources/img/frames/frame.png',
-    ],
-    'commands' => [
-        'post_photo' => '/var/www/html/private/upload_picture.sh --url="https://lix0st.ch/piwigo-test/ws.php" --username=photobooth --password=invuettes12 --image_path="/var/www/html/data/images/%s" --album_id=1',
+        'locking_msg' => 'Impression... Limite d\'impression ateinte, l\'imprimante sera désactivée',
+        'limit_msg' => 'Impression désactivée',
+        'frame' => '/resources/img/frames/frame.png',
     ],
     'mail' => [
         'subject' => 'Here is your picture',
