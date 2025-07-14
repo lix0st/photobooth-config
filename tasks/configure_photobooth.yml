@@ -8,37 +8,10 @@
     mode: "0660"
   tags: config
 
-- name: Create sub-directory in private directory
-  ansible.builtin.file:
-    path: "/var/www/html/private/{{ item }}"
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: "0770"
-  with_items:
-    - images
-    - images/logo
-    - images/background
-    - scripts
-
-- name: Install custom images
+- name: Copy private files
   ansible.builtin.copy:
-    dest: "/var/www/html/private/{{ item.dest }}"
-    src: "{{ item.file }}"
+    dest: "/var/www/html/private/"
+    src: "private/"
     owner: www-data
     group: www-data
-    mode: "{{ item.mode }}"
-  with_items:
-    - file: logo_aim.png
-      dest: images/logo/logo_aim.png
-      mode: "0660"
-    - file: bg_aim.jpg
-      dest: images/background/bg_aim.jpg
-      mode: "0660"
-    - file: upload_picture.sh
-      dest: scripts/upload_picture.sh
-      mode: "0770"
-    - file: collage.json
-      dest: collage.json
-      mode: "0660"
   tags: config

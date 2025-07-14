@@ -1,0 +1,19 @@
+{
+    "width": "1800",
+    "height": "1800",
+    "apply_frame": "false",
+    "frame": "/resources/img/frames/frame_stone.png",
+    "background": "",
+    "background_color": "#FFFFFF",
+    "placeholder": true,
+    "placeholderpath": "/private/images/placeholder/jessica_alain.jpeg",
+    "placeholderposition": "4",
+    "copies_count": "2",
+    "copies_offset": "25",
+    "layout":[
+             [ "112", "100",   "675", "450", "0", false ],
+             [ "112", "570",  "675", "450", "0", false ],
+             [ "112", "1040", "675", "450", "0", false ],
+             [ "75",  "1510", "750", "178", "0", false ]
+             ]
+}

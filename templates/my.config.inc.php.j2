@@ -4,8 +4,9 @@ return [
     'ui' => [
         'language' => 'fr',
         'show_fork' => false,
+        'skip_welcome' => true,
         'scale' => 200,
-        'shutter_animation' => false,
+        'shutter_cheese_img' => '/resources/img/cheese/camera_up.svg',
     ],
     'adminpanel' => [
         'view' => 'expert',
@@ -14,7 +15,6 @@ return [
         'title' => 'Photomaton',
     ],
     'logo' => [
-        'enabled' => true,
         'path' => '/private/images/logo/logo_aim.png',
         'position' => 'bottom_right',
     ],
@@ -22,6 +22,7 @@ return [
         'enabled' => false,
     ],
     'picture' => [
+        'enabled' => false,
         'cntdwn_time' => 3,
         'cheese_time' => 2000,
         'take_frame' => false,
@@ -34,21 +35,23 @@ return [
         'no_request' => true,
     ],
     'event' => [
-        'textRight' => 'Olivier',
-        'textLeft' => 'Alexandra',
-        'symbol' => 'fa-camera',
+        'textRight' => 'Jessica',
+        'textLeft' => 'Alain',
+        'symbol' => 'fa-regular fa-heart',
     ],
     'filters' => [
         'enabled' => false,
     ],
     'collage' => [
-        'enabled' => false,
         'layout' => 'collage.json',
         'frame' => '/resources/img/frames/frame.png',
-        'placeholderpath' => '/resources/img/background/01.jpg',
+        'placeholder' => true,
+        'placeholderposition' => 4,
+        'placeholderpath' => '/private/images/placeholder/jessica_alain.jpeg',
         'limit' => 3,
     ],
     'textoncollage' => [
+        'enabled' => false,
         'font' => '/resources/fonts/GreatVibes-Regular.ttf',
     ],
     'login' => [
@@ -64,7 +67,7 @@ return [
         'username' => 'ie6qj_photobooth',
         'password' => '{{ ftp_password }}',
         'folder' => 'aim-photobooth',
-        'title' => 'alex-oli',
+        'title' => 'amelie-victor',
         'useForQr' => true,
         'website' => 'https://photobooth.aim-photography.ch/',
         'urlTemplate' => '%website%/%folder%/%title%/',
@@ -86,8 +89,8 @@ return [
         'box' => '#dbffda',
     ],
     'background' => [
-        'defaults' => 'url(/private/images/background/bg_aim.jpg)',
-        'chroma' => 'url(/private/images/background/bg_aim.jpg)',
+        'defaults' => 'url(/private/images/background/bg_jessica_alain.jpg)',
+        'chroma' => 'url(/private/images/background/bg_jessica_alain.jpg)',
     ],
     'remotebuzzer' => [
         'serverip' => '192.168.110.50',
@@ -96,7 +99,6 @@ return [
         'font' => '/resources/fonts/GreatVibes-Regular.ttf',
     ],
     'qr' => [
-        'enabled' => true,
         'url' => 'https://photobooth.aim-photography.ch/',
         'append_filename' => false,
         'custom_text' => true,
@@ -104,6 +106,8 @@ return [
     ],
     'print' => [
         'from_result' => true,
+        'from_gallery' => true,
+        'time' => 25000,
         'locking_msg' => 'Impression... Limite d\'impression ateinte, l\'imprimante sera désactivée',
         'limit_msg' => 'Impression désactivée',
         'frame' => '/resources/img/frames/frame.png',
